@@ -2,4 +2,3 @@
 Study notes
 
 *Incio
-*Incio
