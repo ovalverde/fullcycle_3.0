@@ -3,6 +3,7 @@ import OrderItemModel from "./order-item.model";
 import OrderModel from "./order.model";
 
 export default class OrderRepository {
+
   async create(entity: Order): Promise<void> {
     await OrderModel.create(
       {
@@ -22,4 +23,29 @@ export default class OrderRepository {
       }
     );
   }
+
+  async update(entity: Order): Promise<void> {
+    logging: console.log, // log SQL statement to console
+    await OrderModel.update(
+      {
+        total: entity.total(),
+        items: entity.items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          product_id: item.productId,
+          quantity: item.quantity,
+        })),
+      },
+      {
+        where: {
+          id: entity.id,
+        }
+        
+      }
+      
+      
+    );
+  }
+
 }
